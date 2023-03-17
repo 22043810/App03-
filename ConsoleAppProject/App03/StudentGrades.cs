@@ -57,11 +57,11 @@ namespace ConsoleAppProject.App03
 		{
 			string[] choices = new string[]
 			{
-		"Input Marks",
-		"Output Marks",
-		"Output Stats",
-		"Output Grade Profile",
-		"Quit"
+				"Input Marks",
+				"Output Marks",
+				"Output Stats",
+				"Output Grade Profile",
+				"Quit"
 			};
 
 			int choice = ConsoleHelper.SelectChoice(choices);
@@ -80,12 +80,19 @@ namespace ConsoleAppProject.App03
 					OutputGradeProfile();
 					break;
 				case 5:
-					CloseApp();
+					Quit();
 					break;
 				default:
 					Console.WriteLine("Invalid choice.");
 					break;
 			}
+			Console.WriteLine();
+			SelectUnit();
+		}
+
+		private void Quit()
+		{
+			throw new NotImplementedException();
 		}
 
 		public void InputMarks()
@@ -139,6 +146,7 @@ namespace ConsoleAppProject.App03
 			{
 				throw new ArgumentException("Invalid mark");
 			}
+		}
 
 			public void CalculateStats()
 			{
@@ -188,5 +196,5 @@ namespace ConsoleAppProject.App03
 
 		}
 	}
-}
+
 
