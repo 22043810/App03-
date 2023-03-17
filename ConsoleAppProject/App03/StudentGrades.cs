@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using ConsoleAppProject.Helpers;
 
 namespace ConsoleAppProject.App03
@@ -92,7 +93,7 @@ namespace ConsoleAppProject.App03
 
 		private void Quit()
 		{
-			throw new NotImplementedException();
+			Environment.Exit(0);
 		}
 
 		public void InputMarks()
@@ -179,22 +180,36 @@ namespace ConsoleAppProject.App03
 				Console.WriteLine($"Minimum mark: {Minimum}");
 				Console.WriteLine($"Maximum mark: {Maximum}");
 			}
-			public void OutputGradeProfile()
+		public void OutputGradeProfile()
+		{
+			ConsoleHelper.OutputHeading("Grade Profile");
+
+			Console.WriteLine("Grades\tCount\tPercentage");
+			Console.WriteLine("--------------------------------");
+			CalGradeProfile();
+			int totalGrades = GradeProfile.Sum(); // calculate the total number of grades
+
+			for (int i = 0; i < GradeProfile.Length; i++)
 			{
-				ConsoleHelper.OutputHeading("Grade Profile");
-
-				Console.WriteLine("Grades\tCount");
-				Console.WriteLine("--------------------");
-
-				for (int i = 0; i < GradeProfile.Length; i++)
-				{
-					Grades grade = (Grades)i;
-					int count = GradeProfile[i];
-					Console.WriteLine($"{grade}\t{count}");
-				}
+				Grades grade = (Grades)i;
+				int count = GradeProfile[i];
+				double percentage = (double)count / totalGrades * 100;
+				Console.WriteLine($"{grade}\t{count}\t{percentage}%");
 			}
-
+		}
+		public void CalGradeProfile()
+		{
+			for (int i= 0; i < GradeProfile.Length; i++)
+			{
+				GradeProfile[i] = 0;
+			}
+			foreach(int mark in Marks)
+			{
+				Grades grade = ConvertToGrade(mark);
+				GradeProfile[(int)grade]++;
+			}
 		}
 	}
+}
 
 
